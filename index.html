@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AAB Bakery – Artisan Bakes in Singapore CBD</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream: #f9f5f0;
+    --dark-brown: #3e2c21;
+    --soft-brown: #bca58c;
+    --highlight: #c76f51;
+    --gray-text: #555;
+    --border-radius: 8px;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0; background: var(--cream); color: var(--dark-brown);
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6;
+  }
+  header {
+    background: var(--dark-brown);
+    color: var(--cream);
+    padding: 1.6rem 1rem;
+    position: sticky; top: 0; z-index: 999;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+  }
+  header .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    letter-spacing: 0.04em;
+    cursor: default;
+  }
+  nav a {
+    color: var(--cream);
+    text-decoration: none;
+    margin-left: 1.3rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    font-size: 1rem;
+  }
+  nav a:hover, nav a:focus-visible {
+    color: var(--highlight);
+    outline-offset: 2px;
+  }
+
+  main {
+    max-width: 1080px;
+    margin: 2rem auto 4rem;
+    padding: 0 1rem;
+  }
+  section {
+    margin-bottom: 4rem;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    color: var(--dark-brown);
+    border-bottom: 3px solid var(--highlight);
+    display: inline-block;
+    padding-bottom: 0.3rem;
+    margin-bottom: 1.5rem;
+  }
+  p.lead {
+    font-size: 1.15rem;
+    color: var(--gray-text);
+    max-width: 650px;
+  }
+
+  /* Products Grid */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 2rem;
+  }
+  article.product-card {
+    background: #fff;
+    border: 1px solid var(--soft-brown);
+    border-radius: var(--border-radius);
+    box-shadow: 0 6px 10px rgb(118 85 59 / 0.12);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: transform 0.3s ease;
+  }
+  article.product-card:focus-within,
+  article.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 18px rgb(199 111 81 / 0.35);
+  }
+  article.product-card img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    display: block;
+  }
+  article.product-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin: 1rem 1rem 0.4rem;
+    color: var(--dark-brown);
+  }
+  article.product-card p {
+    margin: 0 1rem 1.25rem;
+    color: var(--gray-text);
+    flex-grow: 1;
+  }
+
+  /* About Section */
+  #about p {
+    max-width: 700px;
+  }
+
+  /* Location Section */
+  #location iframe {
+    width: 100%;
+    height: 320px;
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: 0 6px 14px rgb(118 85 59 / 0.15);
+  }
+  #location .address {
+    margin-top: 1rem;
+    max-width: 400px;
+    color: var(--gray-text);
+    font-size: 1.1rem;
+  }
+
+  /* Online Pre-Orders with Lead Collection Form */
+  #preorders form {
+    max-width: 480px;
+    background: #fff;
+    border-radius: var(--border-radius);
+    padding: 2rem 1.8rem;
+    box-shadow: 0 9px 18px rgb(199 111 81 / 0.22);
+  }
+  #preorders label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+    color: var(--dark-brown);
+  }
+  #preorders input, #preorders textarea {
+    width: 100%;
+    padding: 0.45rem 0.7rem;
+    font-size: 1rem;
+    border: 1.5px solid var(--soft-brown);
+    border-radius: var(--border-radius);
+    transition: border-color 0.3s ease;
+    font-family: 'Open Sans', sans-serif;
+  }
+  #preorders input:focus, #preorders textarea:focus {
+    outline: none;
+    border-color: var(--highlight);
+    box-shadow: 0 0 8px var(--highlight);
+  }
+  #preorders textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  #preorders button {
+    margin-top: 1rem;
+    background: var(--highlight);
+    border: none;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.7rem 1.2rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  #preorders button:hover, #preorders button:focus-visible {
+    background: #9d4d3d;
+    outline-offset: 2px;
+  }
+  #preorders .status-msg {
+    margin-top: 0.9rem;
+    font-weight: 600;
+  }
+
+  /* Call to Action */
+  #visit {
+    text-align: center;
+  }
+  #visit .cta-button {
+    background: var(--highlight);
+    color: #fff;
+    padding: 1.05rem 2.3rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    border: none;
+    margin-top: 1.6rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s ease;
+  }
+  #visit .cta-button:hover, #visit .cta-button:focus-visible {
+    background: #9d4d3d;
+    outline-offset: 2px;
+  }
+
+  /* Registration Sections */
+  .registration-container {
+    max-width: 480px;
+    background: #fff;
+    border-radius: var(--border-radius);
+    padding: 1.8rem 1.6rem;
+    box-shadow: 0 9px 18px rgb(199 111 81 / 0.22);
+    margin: 0 auto 4rem;
+  }
+  .registration-container h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--dark-brown);
+    border-bottom: 2px solid var(--highlight);
+    padding-bottom: 0.3rem;
+  }
+  .registration-container label {
+    font-weight: 600;
+    color: var(--dark-brown);
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+  }
+  .registration-container input {
+    width: 100%;
+    padding: 0.42rem 0.7rem;
+    border-radius: var(--border-radius);
+    border: 1.5px solid var(--soft-brown);
+    font-size: 1rem;
+    margin-bottom: 0.85rem;
+    outline-offset: 2px;
+    font-family: 'Open Sans', sans-serif;
+    transition: border-color 0.3s ease;
+  }
+  .registration-container input:focus {
+    border-color: var(--highlight);
+    box-shadow: 0 0 7px var(--highlight);
+  }
+  .registration-container button {
+    width: 100%;
+    background: var(--highlight);
+    color: #fff;
+    padding: 0.7rem;
+    font-weight: 700;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background 0.3s ease;
+  }
+  .registration-container button:hover, .registration-container button:focus-visible {
+    background: #9d4d3d;
+  }
+  .status-message {
+    margin-top: 0.7rem;
+    font-weight: 600;
+    min-height: 1.3em;
+    color: var(--highlight);
+  }
+
+  /* Responsive */
+  @media (max-width: 520px) {
+    header .container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    nav a {
+      margin-left: 0;
+      margin-right: 1rem;
+      margin-bottom: 0.8rem;
+      font-size: 0.95rem;
+    }
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+    #preorders form, .registration-container {
+      max-width: 100%;
+      padding: 1.2rem 1rem;
+    }
+  }
+
+</style>
+</head>
+<body>
+<header>
+  <div class="container" role="banner">
+    <h1 tabindex="0">AAB Bakery</h1>
+    <nav aria-label="Main navigation">
+      <a href="#products">Products</a>
+      <a href="#about">About</a>
+      <a href="#location">Location</a>
+      <a href="#preorders">Pre-Orders</a>
+      <a href="#signup">Sign Up</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section id="hero" aria-label="Introductory section about AAB Bakery">
+    <h2>Welcome to AAB Bakery</h2>
+    <p class="lead">Celebrating 5 years of artisan excellence in the heart of Singapore CBD. Handcrafted sourdough, pastries, and seasonal cakes for discerning working professionals who appreciate premium quality and authentic flavors.</p>
+  </section>
+
+  <section id="products" aria-labelledby="products-title">
+    <h2 id="products-title">Our Artisan Products</h2>
+    <div class="products-grid" role="list">
+      <article class="product-card" tabindex="0" role="listitem" aria-label="Artisan Sourdough Bread">
+        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80" alt="Loaf of artisan sourdough bread" />
+        <h3>Artisan Sourdough</h3>
+        <p>Slow-fermented with natural starter, our sourdough boasts rich flavor, crisp crust, and a tender crumb — the perfect companion for your meals.</p>
+      </article>
+      <article class="product-card" tabindex="0" role="listitem" aria-label="Selection of freshly baked pastries">
+        <img src="https://images.unsplash.com/photo-1582515073490-d63c2a792bcd?auto=format&fit=crop&w=400&q=80" alt="Delicious assorted freshly baked pastries" />
+        <h3>Fresh Pastries</h3>
+        <p>From buttery croissants to delicate danishes, our pastries are baked fresh daily, combining buttery flakiness with sophisticated flavors.</p>
+      </article>
+      <article class="product-card" tabindex="0" role="listitem" aria-label="Seasonal cakes decorated with fruits and chocolate">
+        <img src="https://images.unsplash.com/photo-1617191511865-b9b9bf4ad9d1?auto=format&fit=crop&w=400&q=80" alt="Seasonal cake with fresh fruits and chocolate" />
+        <h3>Seasonal Cakes</h3>
+        <p>Celebrate every occasion with our limited-edition seasonal cakes, crafted from the finest ingredients and inspired by Singapore’s vibrant seasons.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="about" aria-labelledby="about-title">
+    <h2 id="about-title">About AAB Bakery</h2>
+    <p>Founded in 2019, AAB Bakery has become the sanctuary for artisan bread and pastry lovers in Singapore CBD. We combine traditional baking techniques with premium local ingredients to deliver products that elevate your daily indulgence.</p>
+    <p>Our team of passionate bakers cherish every step—from nurturing our sourdough starter to hand-decorating cakes—to ensure every bite is a memorable experience.</p>
+  </section>
+
+  <section id="location" aria-labelledby="location-title">
+    <h2 id="location-title">Visit Our Bakery</h2>
+    <iframe title="AAB Bakery location map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3974.8831717195835!2d103.85195941526187!3d1.2800187994126954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da19c31e026f57%3A0xd58d7e59a5d0e3c9!2sRaffles%20Place%2C%20Singapore!5e0!3m2!1sen!2ssg!4v1694896063841!5m2!1sen!2ssg" loading="lazy" aria-hidden="false" ></iframe>
+    <p class="address" tabindex="0">123 Artisan Ln, #01-11, Singapore 048622<br />Open Mon-Fri: 7:00 AM – 6:00 PM | Sat: 8:00 AM – 3:00 PM</p>
+  </section>
+
+  <section id="preorders" aria-labelledby="preorders-title">
+    <h2 id="preorders-title">Online Pre-Orders</h2>
+    <p class="lead">Reserve your favorite artisan delights ahead of time. Fill in your details and order requests below, and we'll prepare fresh just for you.</p>
+    <form id="preorderForm" novalidate aria-describedby="preorder-status-msg">
+      <label for="po-name">Name</label>
+      <input type="text" id="po-name" name="name" required autocomplete="name" placeholder="Your full name" />
+      <label for="po-email">Email</label>
+      <input type="email" id="po-email" name="email" required autocomplete="email" placeholder="you@example.com" />
+      <label for="po-details">Order Details</label>
+      <textarea id="po-details" name="details" required placeholder="What would you like to order?"></textarea>
+      <button type="submit">Submit Pre-Order</button>
+      <p class="status-msg" id="preorder-status-msg" aria-live="polite" role="status"></p>
+    </form>
+  </section>
+
+  <section id="visit" aria-label="Call to action to visit the bakery">
+    <h2>Come Visit Us!</h2>
+    <p class="lead">Experience the aroma and warmth of fresh artisan baking at our bakery. Perfect for your morning coffee or afternoon treats.</p>
+    <a href="#location" class="cta-button" role="button" aria-label="Scroll to location section to visit AAB Bakery">Find Us & Visit Today</a>
+  </section>
+
+  <section id="signup" aria-labelledby="signup-title">
+    <div class="registration-container" role="region" aria-live="polite" aria-label="Sign up for AAB Bakery newsletter">
+      <h3 id="signup-title">Sign Up for Our Newsletter</h3>
+      <label for="reg-email">Email</label>
+      <input type="email" id="reg-email" autocomplete="email" placeholder="you@example.com" required />
+      <label for="reg-name">Name</label>
+      <input type="text" id="reg-name" autocomplete="name" placeholder="Your full name" required />
+      <button id="registerBtn" type="button">Register</button>
+      <p class="status-message" id="registerStatus" aria-live="polite"></p>
+    </div>
+
+    <div class="registration-container" role="region" aria-live="polite" aria-label="Update registered email for AAB Bakery newsletter" style="margin-top: 2rem;">
+      <h3>Update Your Email</h3>
+      <label for="old-email">Current Email</label>
+      <input type="email" id="old-email" autocomplete="email" placeholder="current-email@example.com" required />
+      <label for="new-email">New Email</label>
+      <input type="email" id="new-email" autocomplete="email" placeholder="new-email@example.com" required />
+      <button id="updateBtn" type="button">Update Email</button>
+      <p class="status-message" id="updateStatus" aria-live="polite"></p>
+    </div>
+  </section>
+</main>
+
+<script>
+  const siteId = new URLSearchParams(window.location.search).get('id') || '';
+
+  async function registerUser(email, name) {
+    try {
+      const res = await fetch('https://techtravelthink.app.n8n.cloud/webhook/user-register', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ action: 'register', email, name, websiteId: siteId, source: window.location.href })
+      });
+      const data = await res.json();
+      return data.success ? 'Registered successfully!' : (data.message || 'Registration failed');
+    } catch(e) { return 'Network error. Please try again.'; }
+  }
+
+  async function updateUserEmail(oldEmail, newEmail) {
+    try {
+      const res = await fetch('https://techtravelthink.app.n8n.cloud/webhook/user-register', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ action: 'update', oldEmail, newEmail, websiteId: siteId })
+      });
+      const data = await res.json();
+      return data.success ? 'Email updated successfully!' : (data.message || 'Update failed');
+    } catch(e) { return 'Network error. Please try again.'; }
+  }
+
+  // Register form handler
+  document.getElementById('registerBtn').addEventListener('click', async () => {
+    const emailInput = document.getElementById('reg-email');
+    const nameInput = document.getElementById('reg-name');
+    const status = document.getElementById('registerStatus');
+    status.textContent = '';
+    if (!emailInput.value.trim() || !nameInput.value.trim()) {
+      status.textContent = 'Please enter both name and email.';
+      return;
+    }
+    if (!validateEmail(emailInput.value.trim())) {
+      status.textContent = 'Please enter a valid email address.';
+      return;
+    }
+    status.textContent = 'Registering...';
+    const msg = await registerUser(emailInput.value.trim(), nameInput.value.trim());
+    status.textContent = msg;
+    if (msg === 'Registered successfully!') {
+      emailInput.value = '';
+      nameInput.value = '';
+    }
+  });
+
+  // Update email form handler
+  document.getElementById('updateBtn').addEventListener('click', async () => {
+    const oldEmailInput = document.getElementById('old-email');
+    const newEmailInput = document.getElementById('new-email');
+    const status = document.getElementById('updateStatus');
+    status.textContent = '';
+    if (!oldEmailInput.value.trim() || !newEmailInput.value.trim()) {
+      status.textContent = 'Please enter both current and new email.';
+      return;
+    }
+    if (!validateEmail(oldEmailInput.value.trim()) || !validateEmail(newEmailInput.value.trim())) {
+      status.textContent = 'Please enter valid email addresses.';
+      return;
+    }
+    status.textContent = 'Updating...';
+    const msg = await updateUserEmail(oldEmailInput.value.trim(), newEmailInput.value.trim());
+    status.textContent = msg;
+    if (msg === 'Email updated successfully!') {
+      oldEmailInput.value = '';
+      newEmailInput.value = '';
+    }
+  });
+
+  // Pre-Order form handler
+  document.getElementById('preorderForm').addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const nameInput = document.getElementById('po-name');
+    const emailInput = document.getElementById('po-email');
+    const detailsInput = document.getElementById('po-details');
+    const status = document.getElementById('preorder-status-msg');
+    status.textContent = '';
+    if (!nameInput.value.trim() || !emailInput.value.trim() || !detailsInput.value.trim()) {
+      status.textContent = 'Please complete all fields.';
+      return;
+    }
+    if (!validateEmail(emailInput.value.trim())) {
+      status.textContent = 'Please enter a valid email address.';
+      return;
+    }
+    status.textContent = 'Submitting pre-order...';
+    try {
+      const res = await fetch('https://techtravelthink.app.n8n.cloud/webhook/user-register', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          action: 'preorder',
+          email: emailInput.value.trim(),
+          name: nameInput.value.trim(),
+          orderDetails: detailsInput.value.trim(),
+          websiteId: siteId,
+          source: window.location.href
+        })
+      });
+      const data = await res.json();
+      if(data.success) {
+        status.textContent = 'Pre-order submitted! We will contact you shortly.';
+        nameInput.value = '';
+        emailInput.value = '';
+        detailsInput.value = '';
+      } else {
+        status.textContent = data.message || 'Submission failed. Please try again.';
+      }
+    } catch {
+      status.textContent = 'Network error. Please try again.';
+    }
+  });
+
+  // Email validation helper
+  function validateEmail(email) {
+    // Simple regex for email validation
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+</script>
+</body>
+</html>
